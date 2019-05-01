@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="0" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="18745" started-at="2019-05-01T14:19:59Z" finished-at="2019-05-01T14:20:17Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="18745" started-at="2019-05-01T14:19:59Z" finished-at="2019-05-01T14:20:17Z">
+      <class name="com.eppm.qa.common.MainDriver">
+        <test-method status="PASS" signature="initialioseBrowser()[pri:0, instance:com.eppm.qa.common.MainDriver@6d00a15d]" name="initialioseBrowser" is-config="true" duration-ms="18745" started-at="2019-05-01T19:49:59Z" finished-at="2019-05-01T19:50:17Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initialioseBrowser -->
+      </class> <!-- com.eppm.qa.common.MainDriver -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
