@@ -8,14 +8,14 @@ public class LoginPageTest {
 	LoginPage L = new LoginPage();
 	MainDriver m = new MainDriver();
 	@Test(priority=1)
-	public void driver() throws Exception{
+	public void driver() throws Exception {
 		
 		m.initialioseBrowser();
 	}
 	
 	@Test(priority=2)
-	public void USer1() throws Exception{
+	public void USer1(){
 		
-		m.initialioseBrowser();
+		L.Loginop();
 	}
 }

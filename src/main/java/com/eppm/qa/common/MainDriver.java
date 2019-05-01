@@ -9,7 +9,7 @@ public class MainDriver {
 
 	
 
-	public static WebDriver driver;
+	public static WebDriver webdriver;
 
 	// loginpage L = new loginpage(); //
 
@@ -22,13 +22,13 @@ public class MainDriver {
 		 System.setProperty("webdriver.chrome.driver","E:\\Automation\\PRITI\\src\\main\\resources\\chromedriver.exe");
 
 
-	driver = new ChromeDriver();
+		 webdriver = new ChromeDriver();
 
 	Thread.sleep(1000);
 
-	  driver.get("https://mail.google.com/");
+	webdriver.get("https://www.guru99.com/");
 	  Thread.sleep(1000);
-	  driver.manage().window().maximize();
+	  webdriver.manage().window().maximize();
 
 	 // L.Login(driver);
 

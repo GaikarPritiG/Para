@@ -3,14 +3,18 @@ package com.eppm.qa.common;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.SkipException;
 
 public class PageBase {
+	public static final String SPACE_KEYWORD = "{space}";
+	public static final String EMPTY_KEYWORD = "{empty}";
 	public WebDriver webdriver=null;
 	GlobalVariables g =new GlobalVariables();
 	public void click(String locator,String ObjectName) 
@@ -39,7 +43,7 @@ public class PageBase {
 		}catch(Exception e)
 		{
 			//Report.LogInfo("click","<font color=red"+ObjectName +" - Is not Present on Screen</font>", "INFO");
-			refreshPage();
+			//refreshPage();
 		}
 	}
 
@@ -204,6 +208,103 @@ public class PageBase {
 			//log.trace("Exiting method isVisible returning result="+result);
 			return result;
 		}
+		public void sendKeys(String locator, String textValue,String message) 
+		{ 
+			
+			try
+			{
+				WebElement webElement = null;
+				if(!isBlankOrNull(locator)){
+					webElement = findWebElement(locator);
+					if(isBlankOrNull(textValue)) {
+						return;
+					}
 
+					if(isValueEmpty(textValue)) {
+						//info("Clear the field contents [text='"+textValue+"', locator='"+locator+"']");
+						webElement.clear();
+						return;
+					}
 
+					textValue = processSpaceValues(textValue);
+
+					webElement.clear();
+					webElement.sendKeys(textValue);
+					//Report.LogInfo("sendKeys","<i>'"+textValue +"</i>' entered in - <b><i>"+message+"</i></b>", "INFO");
+					//info("Type text into field [text='"+textValue+"', locator='"+locator+"']");
+				}
+				else {
+					//	throw new Exception("Invalid locator format [locator='"+locator+"']");
+					refreshPage();
+					throw new SkipException("Skipping This Execution");
+				}
+			}
+			catch(Exception e)
+			{
+			//	Report.LogInfo("sendKeys",locator +" - Not present on Screen", "FAIL");
+				refreshPage();
+				throw new SkipException("Skipping This Execution");
+
+			}
+		}
+
+		protected boolean isValueEmpty(String value) {
+			//if(StringUtils.containsIgnoreCase(value,EMPTY_KEYWORD)) {
+				if(EMPTY_KEYWORD.equalsIgnoreCase(value.trim())) {
+					return true;
+				}
+				else {
+					//	throw new Exception("Invalid empty value format! [value='" + value + "']");
+				}
+			//}
+			return false;
+		}
+
+		
+		protected String processSpaceValues(String value) {
+			//if(StringUtils.containsIgnoreCase(value,SPACE_KEYWORD)) {
+				value = value.replace(SPACE_KEYWORD, " ");
+				value = value.replace(SPACE_KEYWORD.toUpperCase(), " ");
+				if("".equals(value.trim())) {
+					//info("Set the value in text box as [value='"+value+"']");
+					//log.trace("Exit method processSpaceValues");
+					return value;
+				}
+				else {
+					//	throw new Exception("Invalid space value format! [value='" + value + "']");
+				}
+			//}
+			return value;
+
+		}
+		
+
+		public void sendKeys(String locator, String textValue) 
+		{ 
+
+			WebElement webElement = null;
+			if(!isBlankOrNull(locator)){
+				webElement = findWebElement(locator);
+				if(isBlankOrNull(textValue)) {
+					return;
+				}
+
+				if(isValueEmpty(textValue)) {
+					//info("Clear the field contents [text='"+textValue+"', locator='"+locator+"']");
+					webElement.clear();
+					return;
+				}
+
+				textValue = processSpaceValues(textValue);
+
+				webElement.clear();
+				webElement.sendKeys(textValue);
+				//Report.LogInfo("sendKeys",textValue +" Entered into "+ locator, "INFO");
+				//info("Type text into field [text='"+textValue+"', locator='"+locator+"']");
+			}
+			else {
+				//	throw new Exception("Invalid locator format [locator='"+locator+"']");
+			}
+			//log.trace("Exiting method typeInto");
+		}
 }
