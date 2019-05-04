@@ -8,32 +8,48 @@ import org.testng.annotations.BeforeTest;
 public class MainDriver {
 
 	
+package com.eppm.qa.common;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
+import com.eppm.qa.pageobject.LoginPage;
+
+public class MainDriver {
+
+	LoginPage loginPage = new LoginPage();
 	public static WebDriver webdriver;
+	
+	public static void main(String[] args) {
+		MainDriver m = new MainDriver();
+		try {
+			m.initialioseBrowser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-	// loginpage L = new loginpage(); //
+	@BeforeSuite
+	public void initialioseBrowser() throws Exception {
 
-	 @BeforeTest
-	 public void initialioseBrowser() throws Exception 
-	 {
-		
-		// String chrome=path+"src\\object\\chromedriver.exe";
-		
-		 System.setProperty("webdriver.chrome.driver","E:\\Automation\\PRITI\\src\\main\\resources\\chromedriver.exe");
+	    System.setProperty("webdriver.chrome.driver","D:\\Supriya\\workspace\\EPPMProject\\src\\main\\resources\\chromedriver_win32\\chromedriver.exe");
+		webdriver = new ChromeDriver();
+		Thread.sleep(1000);
+		webdriver.get("http://10.1.2.15:9000/login");
+		Thread.sleep(1000);
+		webdriver.manage().window().maximize();
+		Thread.sleep(4000);
+		//loginPage.doLogin("mayanks", "mayanks");
 
+	}
 
-		 webdriver = new ChromeDriver();
+	@AfterSuite
+	public void closeBrowser() {
 
-	Thread.sleep(1000);
+		webdriver.quit();
 
-	webdriver.get("https://www.guru99.com/");
-	  Thread.sleep(1000);
-	  webdriver.manage().window().maximize();
+	}
+}
 
-	 // L.Login(driver);
-
-	  Thread.sleep(4000);
-
-
-	 }
 }
